@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun validateCredentials(username: String, password: String) {
-        val correctUsername = "tu_usuario_correcto"
-        val correctPassword = "tu_contraseña_correcta"
+        val correctUsername = "admin"
+        val correctPassword = "1234"
 
         if (username == correctUsername && password == correctPassword) {
             // Inicio de sesión exitoso, redirige a la siguiente actividad
