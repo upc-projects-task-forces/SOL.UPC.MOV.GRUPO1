@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Grupo 1 - Portal Certificaciones</string>
+    <string name="title_activity_certificate_list">CertificateListActivity</string>
+    <string name="title_certificate_list">Mis Certificaciones</string>
+    <string name="title_notifications">Notificaciones</string>
 </resources>

@@ -3,19 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_certification_list">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="pe.gob.fondepes.demo.portal.certificaciones.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="pe.gob.fondepes.demo.portal.certificaciones.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_certification_list"
+        android:name="pe.gob.fondepes.demo.portal.certificaciones.ui.certificate_list.CertificateListFragment"
+        android:label="@string/title_certificate_list"
+        tools:layout="@layout/fragment_certificate_list" />
 
     <fragment
         android:id="@+id/navigation_notifications"

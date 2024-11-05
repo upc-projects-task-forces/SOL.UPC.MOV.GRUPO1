@@ -1,42 +1,52 @@
-package pe.gob.fondepes.demo.portal.certificaciones.ui.dashboard
+package pe.gob.fondepes.demo.portal.certificaciones.ui.certificate_list
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ListView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import pe.gob.fondepes.demo.portal.certificaciones.databinding.FragmentDashboardBinding
+import pe.gob.fondepes.demo.portal.certificaciones.CertificateDetailActivity
+import pe.gob.fondepes.demo.portal.certificaciones.R
+import pe.gob.fondepes.demo.portal.certificaciones.adapter.CertificateAdapter
+import pe.gob.fondepes.demo.portal.certificaciones.classes.Certificate
 
-class DashboardFragment : Fragment() {
+class CertificateListFragment : Fragment() {
+    private lateinit var listView: ListView
+    private lateinit var adapter: CertificateAdapter
 
-    private var _binding: FragmentDashboardBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
-
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_certificate_list, container, false)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listView = view.findViewById(R.id.lvCertification)
+
+        val certificates = arguments?.getParcelableArrayList<Certificate>("certificates") ?: arrayListOf()
+
+        adapter = CertificateAdapter(requireContext(), certificates)
+        listView.adapter = adapter
+
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val selectedCertificate = certificates[position]
+            val intent = Intent(requireContext(), CertificateDetailActivity::class.java).apply {
+                putExtra("certificate", selectedCertificate)
+            }
+            startActivity(intent)
+        }
+
+    }
+
+    companion object {
+        fun newInstance(certificates: ArrayList<Certificate>): CertificateListFragment {
+            val fragment = CertificateListFragment()
+            val args = Bundle().apply {
+                putParcelableArrayList("certificates", certificates)
+            }
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

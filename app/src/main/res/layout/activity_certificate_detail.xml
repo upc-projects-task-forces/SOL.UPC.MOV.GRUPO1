@@ -7,4 +7,121 @@
     android:layout_height="match_parent"
     tools:context=".CertificateDetailActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="start"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/imgBtnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/txtTitleCertDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginBottom="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado:"
+            android:textSize="15sp"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:id="@+id/txtStatusCertDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VIGENTE"
+            android:textStyle="bold"
+            android:textColor="#008000"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de expiración:"
+            android:textSize="15sp"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:id="@+id/txtExpirationCertDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Instructor:"
+            android:textSize="15sp"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:id="@+id/txtInstructorCertDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GONZALES, JUAN ANTONIO"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha de finalización:"
+            android:textSize="15sp"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:id="@+id/txtTimeLimitCertDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="04/01/2024"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/txtNoteCertDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="En caso de fiscalización pulse en la imágen"
+            android:textSize="15sp"
+            android:layout_marginBottom="20dp" />
+
+        <Button
+            android:id="@+id/btnDownloadCertDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_download"
+            android:text="Descargar certificado"
+            android:textColor="#000000"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/btnViewQrCertDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_qr"
+            android:text="Visualizar QR"
+            android:textColor="#000000"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

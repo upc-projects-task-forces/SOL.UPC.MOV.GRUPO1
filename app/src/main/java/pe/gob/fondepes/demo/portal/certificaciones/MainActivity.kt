@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,21 +37,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun validateCredentials(username: String, password: String) {
         val correctUsername = "admin"
         val correctPassword = "1234"
 
         if (username == correctUsername && password == correctPassword) {
-            // Inicio de sesión exitoso, redirige a la siguiente actividad
-            val intent = Intent(this, MainActivity::class.java) // Reemplaza MainActivity con la actividad a la que deseas redirigir
+            val intent = Intent(this, CertificateListActivity::class.java)
             startActivity(intent)
         } else {
-            // Credenciales incorrectas, muestra un Toast
             Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 }

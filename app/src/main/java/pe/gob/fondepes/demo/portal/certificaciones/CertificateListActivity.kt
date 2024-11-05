@@ -1,35 +1,26 @@
 package pe.gob.fondepes.demo.portal.certificaciones
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import pe.gob.fondepes.demo.portal.certificaciones.databinding.ActivityCertificateListBinding
+import pe.gob.fondepes.demo.portal.certificaciones.classes.Certificate
+import pe.gob.fondepes.demo.portal.certificaciones.ui.certificate_list.CertificateListFragment
+
 
 class CertificateListActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCertificateListBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_certificate_list)
 
-        binding = ActivityCertificateListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val navView: BottomNavigationView = binding.navView
-
-        val navController = findNavController(R.id.nav_host_fragment_activity_certificate_list)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
+        val certificates = arrayListOf(
+            Certificate("Liberación de tortugas", "Manipulación y liberación de tortugas marinas, aves y otras especies de captura incidental", "05/04/2024"),
+            Certificate("Seguridad en faenas de pesca", "Seguridad en faenas de pesca y primeros auxilios", "05/04/2024")
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+
+        val fragment = CertificateListFragment.newInstance(certificates)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.certification_item_view, fragment)
+            .commit()
     }
+
 }
