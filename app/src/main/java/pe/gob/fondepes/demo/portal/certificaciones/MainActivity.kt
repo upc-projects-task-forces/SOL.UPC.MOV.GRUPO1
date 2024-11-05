@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         if (username == correctUsername && password == correctPassword) {
             // Inicio de sesión exitoso, redirige a la siguiente actividad
-            val intent = Intent(this, MainActivity::class.java) // Reemplaza MainActivity con la actividad a la que deseas redirigir
+            val intent = Intent(this, HomeActivity::class.java) // Reemplaza MainActivity con la actividad a la que deseas redirigir
             startActivity(intent)
         } else {
             // Credenciales incorrectas, muestra un Toast
