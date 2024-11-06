@@ -1,12 +1,15 @@
 package pe.gob.fondepes.demo.portal.certificaciones
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import pe.gob.fondepes.demo.portal.certificaciones.data.Notification
 
 class HomeActivity : AppCompatActivity() {
     lateinit var bottomNav : BottomNavigationView
@@ -28,8 +31,19 @@ class HomeActivity : AppCompatActivity() {
                     loadFragment(CertificadosFragment())
                     true
                 }
+                R.id.menu_motificaciones -> {
+                    val intent = Intent(this, NotificationActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
                 else -> {false}
             }
+        }
+
+        var iconButtonNotification = findViewById<ImageView>(R.id.imageView3)
+        iconButtonNotification.setOnClickListener{
+            val intent = Intent(this, NotificationActivity::class.java)
+            startActivity(intent)
         }
     }
 
