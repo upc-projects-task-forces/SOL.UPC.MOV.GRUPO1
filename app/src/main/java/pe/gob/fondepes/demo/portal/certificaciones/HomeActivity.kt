@@ -9,7 +9,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import pe.gob.fondepes.demo.portal.certificaciones.data.Notification
 
 class HomeActivity : AppCompatActivity() {
     lateinit var bottomNav : BottomNavigationView
@@ -28,23 +27,23 @@ class HomeActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.menu_certificaciones -> {
-                    loadFragment(CertificadosFragment())
+                    loadFragment(CertificateListFragment.newInstance())
                     true
                 }
                 R.id.menu_motificaciones -> {
-                    val intent = Intent(this, NotificationActivity::class.java)
-                    startActivity(intent)
+                    loadFragment(NotificationFragment.newInstance())
                     true
                 }
                 else -> {false}
             }
         }
 
-        var iconButtonNotification = findViewById<ImageView>(R.id.imageView3)
+        val iconButtonNotification = findViewById<ImageView>(R.id.imageView3)
         iconButtonNotification.setOnClickListener{
-            val intent = Intent(this, NotificationActivity::class.java)
-            startActivity(intent)
+            loadFragment(NotificationFragment.newInstance())
         }
+
+        loadFragment(CertificateListFragment.newInstance())
     }
 
     private fun loadFragment(fragment: Fragment){
