@@ -10,4 +10,6 @@
     <string name="hint_password">Contraseña</string>
     <string name="label_login">Ingresar</string>
     <string name="icon_notification_description">Icono de notificación</string>
+    <string name="text_alert_icon">alert icon</string>
+    <string name="label_register">INSCRIBIRSE</string>
 </resources>
