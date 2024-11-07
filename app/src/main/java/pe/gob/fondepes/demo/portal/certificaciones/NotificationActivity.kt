@@ -37,6 +37,7 @@ class NotificationActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu_motificaciones -> {
+                    loadFragment(CertificadosFragment())
                     true
                 }
                 else -> false
