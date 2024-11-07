@@ -1,46 +1,70 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="4dp"
-    android:background="@color/material_dynamic_neutral100">
+    android:layout_margin="8dp"
+    android:background="@color/white"
+    app:cardElevation="2dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="8dp">
+
 
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Título de la Notificación"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/vertical_barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Título de la Notificación" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/vertical_barrier"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:barrierDirection="start"
+            app:constraint_referenced_ids="actionButton,infoIcon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/actionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+            android:text="@string/label_register"
             android:textColor="@color/black"
-            android:text="INSCRIBIRSE" />
+            app:layout_constraintEnd_toStartOf="@+id/infoIcon"
+            app:layout_constraintStart_toEndOf="@+id/vertical_barrier"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/infoIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_alert" />
-    </LinearLayout>
+            android:contentDescription="@string/text_alert_icon"
+            android:src="@drawable/icon_alert"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/bodyTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Descripción de la notificación"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/bodyTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/vertical_barrier"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            tools:text="Descripción de la notificación" />
 
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

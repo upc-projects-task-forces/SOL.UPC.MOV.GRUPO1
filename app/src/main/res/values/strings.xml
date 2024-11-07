@@ -2,4 +2,15 @@
     <string name="app_name">Grupo 1 - Portal Certificaciones</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_certificates">Mis Certificaciones</string>
+    <string name="title_notifications">Notificaciones</string>
+    <string name="login_image_description">Fondo - Foto de embarcaciones de pesca</string>
+    <string name="title_login">Ingreso a Portal de Certificaciones</string>
+    <string name="hint_user">Usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="label_login">Ingresar</string>
+    <string name="icon_notification_description">Icono de notificación</string>
+    <string name="text_alert_icon">alert icon</string>
+    <string name="label_register">INSCRIBIRSE</string>
+    <string name="label_footer">Plataformas móviles y Análisis cloud - Grupo 1</string>
 </resources>
