@@ -12,4 +12,5 @@
     <string name="icon_notification_description">Icono de notificación</string>
     <string name="text_alert_icon">alert icon</string>
     <string name="label_register">INSCRIBIRSE</string>
+    <string name="label_footer">Plataformas móviles y Análisis cloud - Grupo 1</string>
 </resources>
