@@ -2,6 +2,7 @@ package pe.gob.fondepes.demo.portal.certificaciones
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -28,16 +29,26 @@ class MainActivity : AppCompatActivity() {
 
         etUsername = findViewById(R.id.editTextText3)
         etPassword = findViewById(R.id.editTextTextPassword)
+        etPassword.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                submit()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
         btnLogin = findViewById(R.id.button)
 
         btnLogin.setOnClickListener {
-            val username = etUsername.text.toString()
-            val password = etPassword.text.toString()
-
-            validateCredentials(username, password)
+            submit()
         }
     }
 
+    private fun submit() {
+        val username = etUsername.text.toString()
+        val password = etPassword.text.toString()
+
+        validateCredentials(username, password)
+    }
 
 
     private fun validateCredentials(username: String, password: String) {
