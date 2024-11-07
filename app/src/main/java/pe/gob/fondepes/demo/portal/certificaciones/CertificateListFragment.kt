@@ -2,15 +2,15 @@ package pe.gob.fondepes.demo.portal.certificaciones
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import androidx.fragment.app.Fragment
 import pe.gob.fondepes.demo.portal.certificaciones.adapter.CertificateAdapter
 import pe.gob.fondepes.demo.portal.certificaciones.classes.Certificate
 
-class CertificadosFragment : Fragment() {
+class CertificateListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,18 +23,22 @@ class CertificadosFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val listView: ListView = view.findViewById(R.id.lvCertification)
         val certificates = arrayListOf(
-            Certificate("Liberación de tortugas",
+            Certificate(
+                "Liberación de tortugas",
                 "Manipulación y liberación de tortugas marinas, aves y otras especies de captura incidental",
                 "VIGENTE",
                 "07/11/2024",
                 "GONZALES, JUAN ANTONIO",
-                "07/11/2026"),
-            Certificate("Seguridad en faenas de pesca",
+                "07/11/2026"
+            ),
+            Certificate(
+                "Seguridad en faenas de pesca",
                 "Seguridad en faenas de pesca y primeros auxilios",
                 "VIGENTE",
                 "07/11/2024",
                 "METZGER, RICARDO MARTIN",
-                "07/11/2026")
+                "07/11/2026"
+            )
         )
         val adapter = CertificateAdapter(requireContext(), certificates)
         listView.adapter = adapter
@@ -48,4 +52,8 @@ class CertificadosFragment : Fragment() {
         }
     }
 
+    companion object {
+        @JvmStatic
+        fun newInstance() = CertificateListFragment()
+    }
 }
