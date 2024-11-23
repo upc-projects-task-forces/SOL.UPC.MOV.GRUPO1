@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -17,8 +19,25 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
+        val localProperties = Properties()
+        file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
+            localProperties.load(it)
+        }
+
+        val firebaseApiKey = localProperties.getProperty("firebaseApiKey") ?: ""
+
+        debug {
+            buildConfigField("String", "FIREBASE_API_KEY", "\"$firebaseApiKey\"")
+            isDebuggable = true
+        }
+
         release {
+            buildConfigField("String", "FIREBASE_API_KEY", "\"$firebaseApiKey\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

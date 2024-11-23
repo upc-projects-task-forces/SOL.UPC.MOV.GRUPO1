@@ -1,0 +1,50 @@
+name: Build and Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Java environment
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # Cache gradle dependencies
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+            path: ~/.gradle/caches
+            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+            restore-keys: |
+              ${{ runner.os }}-gradle-
+
+      # Inject the Firebase API Key into local.properties
+      - name: Configure local.properties
+        run: |
+          if [ ! -f local.properties ]; then
+            echo "Creating local.properties..."
+            echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+          fi
+          if ! grep -q "firebaseApiKey" local.properties; then
+            echo "firebaseApiKey=${{ secrets.FIREBASE_API_KEY }}" >> local.properties
+          fi
+
+      # Grant execute permissions for gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Run tests
+      - name: Build with Gradle
+        run: ./gradlew assembleDebug test
