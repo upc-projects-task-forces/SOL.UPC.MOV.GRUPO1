@@ -1,4 +1,4 @@
-package pe.gob.fondepes.demo.portal.certificaciones.adapter
+package pe.gob.fondepes.demo.portal.certificaciones.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pe.gob.fondepes.demo.portal.certificaciones.R
-import pe.gob.fondepes.demo.portal.certificaciones.data.Notification
-import pe.gob.fondepes.demo.portal.certificaciones.data.NotificationState
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.Notification
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.NotificationState
 
 class NotificationAdapter(private val notifications: List<Notification>) :
     RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {

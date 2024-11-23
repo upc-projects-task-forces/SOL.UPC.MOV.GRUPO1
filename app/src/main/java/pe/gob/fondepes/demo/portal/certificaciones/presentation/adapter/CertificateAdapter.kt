@@ -1,4 +1,4 @@
-package pe.gob.fondepes.demo.portal.certificaciones.adapter
+package pe.gob.fondepes.demo.portal.certificaciones.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import pe.gob.fondepes.demo.portal.certificaciones.R
-import pe.gob.fondepes.demo.portal.certificaciones.classes.Certificate
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.Certificate
 
 class CertificateAdapter(context: Context, private val certificates: List<Certificate>) : ArrayAdapter<Certificate>(context, 0, certificates){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

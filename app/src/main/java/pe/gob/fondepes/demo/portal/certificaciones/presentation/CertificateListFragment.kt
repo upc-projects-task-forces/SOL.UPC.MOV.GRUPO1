@@ -1,4 +1,4 @@
-package pe.gob.fondepes.demo.portal.certificaciones
+package pe.gob.fondepes.demo.portal.certificaciones.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import pe.gob.fondepes.demo.portal.certificaciones.adapter.CertificateAdapter
-import pe.gob.fondepes.demo.portal.certificaciones.classes.Certificate
+import pe.gob.fondepes.demo.portal.certificaciones.R
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.adapter.CertificateAdapter
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.Certificate
 
 class CertificateListFragment : Fragment() {
 

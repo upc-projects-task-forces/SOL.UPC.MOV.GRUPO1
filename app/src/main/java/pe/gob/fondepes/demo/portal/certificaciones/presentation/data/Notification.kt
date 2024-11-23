@@ -1,4 +1,4 @@
-package pe.gob.fondepes.demo.portal.certificaciones.data
+package pe.gob.fondepes.demo.portal.certificaciones.presentation.data
 
 data class Notification(
     val title: String,
