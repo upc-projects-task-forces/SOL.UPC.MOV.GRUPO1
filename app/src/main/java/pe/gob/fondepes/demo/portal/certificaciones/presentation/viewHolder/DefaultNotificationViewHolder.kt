@@ -1,4 +1,4 @@
-package pe.gob.fondepes.demo.portal.certificaciones.viewHolder
+package pe.gob.fondepes.demo.portal.certificaciones.presentation.viewHolder
 
 
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pe.gob.fondepes.demo.portal.certificaciones.R
-import pe.gob.fondepes.demo.portal.certificaciones.data.Notification
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.Notification
 
 class DefaultNotificationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val titleTextView: TextView = view.findViewById(R.id.titleTextView)

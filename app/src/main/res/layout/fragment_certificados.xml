@@ -8,7 +8,7 @@
     android:gravity="start"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context=".CertificateListFragment">
+    tools:context=".presentation.CertificateListFragment">
 
     <TextView
         android:id="@+id/textView2"

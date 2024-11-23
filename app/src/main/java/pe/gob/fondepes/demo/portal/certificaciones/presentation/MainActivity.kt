@@ -1,4 +1,4 @@
-package pe.gob.fondepes.demo.portal.certificaciones
+package pe.gob.fondepes.demo.portal.certificaciones.presentation
 
 import android.content.Intent
 import android.graphics.Color
@@ -15,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import pe.gob.fondepes.demo.portal.certificaciones.R
 
 class MainActivity : AppCompatActivity() {
     private lateinit var etUsername: EditText

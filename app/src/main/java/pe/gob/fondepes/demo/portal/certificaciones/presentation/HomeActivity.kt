@@ -1,4 +1,4 @@
-package pe.gob.fondepes.demo.portal.certificaciones
+package pe.gob.fondepes.demo.portal.certificaciones.presentation
 
 import android.os.Bundle
 import android.widget.ImageView
@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import pe.gob.fondepes.demo.portal.certificaciones.R
 
 class HomeActivity : AppCompatActivity() {
     lateinit var bottomNav: BottomNavigationView

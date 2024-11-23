@@ -1,4 +1,4 @@
-package pe.gob.fondepes.demo.portal.certificaciones.classes
+package pe.gob.fondepes.demo.portal.certificaciones.presentation.classes
 
 import android.os.Parcel
 import android.os.Parcelable

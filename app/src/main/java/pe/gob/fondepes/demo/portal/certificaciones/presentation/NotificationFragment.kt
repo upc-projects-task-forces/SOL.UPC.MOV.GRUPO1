@@ -1,4 +1,4 @@
-package pe.gob.fondepes.demo.portal.certificaciones
+package pe.gob.fondepes.demo.portal.certificaciones.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import pe.gob.fondepes.demo.portal.certificaciones.adapter.NotificationAdapter
-import pe.gob.fondepes.demo.portal.certificaciones.data.Notification
-import pe.gob.fondepes.demo.portal.certificaciones.data.NotificationState
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.adapter.NotificationAdapter
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.Notification
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.NotificationState
 import pe.gob.fondepes.demo.portal.certificaciones.databinding.FragmentNotificationBinding
 
 
