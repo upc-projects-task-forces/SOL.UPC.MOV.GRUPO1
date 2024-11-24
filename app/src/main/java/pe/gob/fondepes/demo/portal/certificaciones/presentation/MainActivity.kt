@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
@@ -16,12 +17,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import pe.gob.fondepes.demo.portal.certificaciones.R
+import pe.gob.fondepes.demo.portal.certificaciones.data.LoginRepository
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.di.DependencyProvider
 
 class MainActivity : AppCompatActivity() {
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
-
+    private lateinit var loginRepository: LoginRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +60,19 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+
+        loginRepository = DependencyProvider.provideLoginRepository(this)
+
+        etUsername = findViewById(R.id.editTextText3)
+        etPassword = findViewById(R.id.editTextTextPassword)
+        etPassword.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                submit()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
         btnLogin = findViewById(R.id.button)
 
         btnLogin.setOnClickListener {
@@ -73,17 +89,26 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun validateCredentials(username: String, password: String) {
-        val correctUsername = "admin"
-        val correctPassword = "1234"
+        loginRepository.login(
+            username,
+            password,
+            {
+                // Iniciar sesión exitoso, redirige a la siguiente actividad
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+            },
+            { error ->
+                // Registra el error en detalle
+                Log.e("Login", "Error al iniciar sesión: ${error.message}")
 
-        if (username == correctUsername && password == correctPassword) {
-            // Inicio de sesión exitoso, redirige a la siguiente actividad
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        } else {
-            // Credenciales incorrectas, muestra un Toast
-            Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
-        }
+                // Define un mensaje de error más amigable
+                val errorMessage = "Error en usuario o contraseña"
+
+
+                // Muestra el Toast con el mensaje personalizado
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 
 

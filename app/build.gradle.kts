@@ -4,6 +4,15 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
+fun loadProperty(key: String): String {
+    val localProperties = Properties()
+    project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
+        localProperties.load(it)
+    }
+    return localProperties.getProperty(key) ?: ""
+}
+
+val firebaseApiKey = loadProperty("firebaseApiKey")
 
 android {
     namespace = "pe.gob.fondepes.demo.portal.certificaciones"
@@ -24,12 +33,6 @@ android {
     }
 
     buildTypes {
-        val localProperties = Properties()
-        file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
-            localProperties.load(it)
-        }
-
-        val firebaseApiKey = localProperties.getProperty("firebaseApiKey") ?: ""
 
         debug {
             buildConfigField("String", "FIREBASE_API_KEY", "\"$firebaseApiKey\"")
