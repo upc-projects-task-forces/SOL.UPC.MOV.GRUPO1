@@ -3,6 +3,7 @@ package pe.gob.fondepes.demo.portal.certificaciones.presentation.di
 import android.content.Context
 import pe.gob.fondepes.demo.portal.certificaciones.data.ApiClient
 import pe.gob.fondepes.demo.portal.certificaciones.data.LoginRepository
+import pe.gob.fondepes.demo.portal.certificaciones.data.NotificationRepository
 import pe.gob.fondepes.demo.portal.certificaciones.data.SecurePreferences
 import pe.gob.fondepes.demo.portal.certificaciones.data.TaskRepository
 import pe.gob.fondepes.demo.portal.certificaciones.data.volley.VolleySingleton
@@ -25,6 +26,13 @@ object DependencyProvider {
         val apiClient = provideApiClient(context)
         val securePreferences = SecurePreferences(context)
         return TaskRepository(apiClient, securePreferences)
+    }
+
+
+    fun provideNotificationRepository(context: Context): NotificationRepository {
+        val apiClient = provideApiClient(context)
+        val securePreferences = SecurePreferences(context)
+        return NotificationRepository(apiClient, securePreferences)
     }
 
     fun provideLoginRepository(context: Context): LoginRepository {
