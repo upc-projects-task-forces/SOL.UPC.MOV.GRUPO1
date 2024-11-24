@@ -24,4 +24,9 @@ class SecurePreferences(context: Context) {
     fun clear() {
         sharedPreferences.edit().clear().apply()
     }
+
+    fun saveRefreshToken(refreshToken: String) {
+        sharedPreferences.edit().putString("firebaseRefreshToken", refreshToken).apply()
+    }
 }
+
