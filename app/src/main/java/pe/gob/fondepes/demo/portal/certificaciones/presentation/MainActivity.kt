@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
@@ -97,8 +98,15 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             },
             { error ->
-                // Error durante el inicio de sesión, muestra un Toast
-                Toast.makeText(this, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+                // Registra el error en detalle
+                Log.e("Login", "Error al iniciar sesión: ${error.message}")
+
+                // Define un mensaje de error más amigable
+                val errorMessage = "Error en usuario o contraseña"
+
+
+                // Muestra el Toast con el mensaje personalizado
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
             }
         )
     }
