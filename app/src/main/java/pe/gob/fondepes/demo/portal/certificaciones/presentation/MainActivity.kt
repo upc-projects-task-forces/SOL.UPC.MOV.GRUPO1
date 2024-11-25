@@ -87,7 +87,6 @@ class MainActivity : AppCompatActivity() {
         validateCredentials(username, password)
     }
 
-
     private fun validateCredentials(username: String, password: String) {
         loginRepository.login(
             username,
@@ -110,6 +109,5 @@ class MainActivity : AppCompatActivity() {
             }
         )
     }
-
 
 }

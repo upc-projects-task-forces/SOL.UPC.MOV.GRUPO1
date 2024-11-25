@@ -9,7 +9,7 @@ import android.widget.TextView
 import pe.gob.fondepes.demo.portal.certificaciones.R
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.Certificate
 
-class CertificateAdapter(context: Context, private val certificates: List<Certificate>) : ArrayAdapter<Certificate>(context, 0, certificates){
+class CertificateAdapter(context: Context, private val certificates: ArrayList<Certificate>) : ArrayAdapter<Certificate>(context, 0, certificates){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val certificate = certificates[position]
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.certificate_item, parent, false)
