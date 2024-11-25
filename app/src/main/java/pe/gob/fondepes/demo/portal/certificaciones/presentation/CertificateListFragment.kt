@@ -10,7 +10,6 @@ import android.widget.ListView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import pe.gob.fondepes.demo.portal.certificaciones.R
 import pe.gob.fondepes.demo.portal.certificaciones.data.TaskRepository
@@ -21,6 +20,8 @@ import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.Task
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.TaskAPIResponse
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.di.DependencyProvider
 import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 class CertificateListFragment : Fragment() {
 
@@ -77,16 +78,30 @@ class CertificateListFragment : Fragment() {
 
     private fun addCertificate(id: String, task: Task): Certificate {
         val course: CourseApiResponse? = task.course
-        //val formatter = SimpleDateFormat("dd/MM/yyyy")
         return Certificate(
             id = id,
             title = course?.name ?: "",
             description = course?.description ?: "",
             status = course?.status ?: "",
-            expirationDate = "",
+            expirationDate = formatDate(task.updatedAt),
             instructor = course?.instructor?.name ?: "",
-            timeLimit = ""
+            timeLimit = formatDate(task.updatedAt),
         )
+    }
+
+    fun formatDate(dateString: String?): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+        return try {
+            dateString?.let {
+                val date = inputFormat.parse(it)
+                outputFormat.format(date!!)
+            } ?: ""
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ""
+        }
     }
 
     companion object {
