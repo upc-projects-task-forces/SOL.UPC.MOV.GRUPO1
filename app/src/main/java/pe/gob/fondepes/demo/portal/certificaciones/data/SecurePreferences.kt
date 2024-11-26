@@ -21,6 +21,14 @@ class SecurePreferences(context: Context) {
         return sharedPreferences.getString("firebaseToken", null)
     }
 
+    fun saveUserID(userID: String) {
+        sharedPreferences.edit().putString("userID", userID).apply()
+    }
+
+    fun getUserID(): String? {
+        return sharedPreferences.getString("userID", null)
+    }
+
     fun clear() {
         sharedPreferences.edit().clear().apply()
     }

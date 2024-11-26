@@ -28,7 +28,6 @@ object DependencyProvider {
         return TaskRepository(apiClient, securePreferences)
     }
 
-
     fun provideNotificationRepository(context: Context): NotificationRepository {
         val apiClient = provideApiClient(context)
         val securePreferences = SecurePreferences(context)
