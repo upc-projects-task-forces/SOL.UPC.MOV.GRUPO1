@@ -15,7 +15,7 @@ class DefaultNotificationViewHolder(view: View) : RecyclerView.ViewHolder(view) 
 
     fun bind(notification: Notification) {
         titleTextView.text = notification.title
-        bodyTextView.text = notification.body
+        bodyTextView.text = notification.description
     }
 }
 
@@ -26,7 +26,7 @@ class NotificationWithButtonViewHolder(view: View) : RecyclerView.ViewHolder(vie
 
     fun bind(notification: Notification) {
         titleTextView.text = notification.title
-        bodyTextView.text = notification.body
+        bodyTextView.text = notification.description
         actionButton.setOnClickListener {
         }
     }
@@ -39,6 +39,6 @@ class NotificationWithIconViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     fun bind(notification: Notification) {
         titleTextView.text = notification.title
-        bodyTextView.text = notification.body
+        bodyTextView.text = notification.description
     }
 }

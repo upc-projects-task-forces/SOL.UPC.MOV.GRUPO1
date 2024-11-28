@@ -14,8 +14,18 @@ class NotificationRepository(
         errorCallback: (Throwable) -> Unit
     ) {
         val token = securePreferences.getToken()
+
+        if (token.isNullOrEmpty()) {
+            errorCallback(Throwable("Token is missing"))
+            return
+        }
+
         val url = FirebaseApi.NOTIFICATIONS_ENDPOINT.replace("{userId}", userId) + "?auth=$token"
 
-        apiClient.get(url, successCallback, errorCallback)
+        apiClient.get(
+            url = url,
+            successCallback = successCallback,
+            errorCallback = errorCallback
+        )
     }
 }

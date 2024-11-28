@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 R.id.menu_motificaciones -> {
-                    loadFragment(NotificationFragment.newInstance())
+                    loadFragment(NotificationFragment())
                     true
                 }
 
@@ -44,7 +44,7 @@ class HomeActivity : AppCompatActivity() {
 
         val iconButtonNotification = findViewById<ImageView>(R.id.imageView3)
         iconButtonNotification.setOnClickListener {
-            loadFragment(NotificationFragment.newInstance())
+            loadFragment(NotificationFragment())
         }
 
         loadFragment(CertificateListFragment.newInstance())

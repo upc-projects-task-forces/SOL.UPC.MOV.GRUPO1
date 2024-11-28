@@ -4,12 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.json.JSONObject
+import pe.gob.fondepes.demo.portal.certificaciones.data.ApiClient
+import pe.gob.fondepes.demo.portal.certificaciones.data.NotificationRepository
+import pe.gob.fondepes.demo.portal.certificaciones.data.SecurePreferences
+import pe.gob.fondepes.demo.portal.certificaciones.data.volley.VolleySingleton
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.adapter.NotificationAdapter
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.Notification
-import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.NotificationState
 import pe.gob.fondepes.demo.portal.certificaciones.databinding.FragmentNotificationBinding
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.NotificationAction
 
 
 /**
@@ -20,61 +27,94 @@ import pe.gob.fondepes.demo.portal.certificaciones.databinding.FragmentNotificat
 class NotificationFragment : Fragment() {
     private var _binding: FragmentNotificationBinding? = null
     private val binding get() = _binding!!
+    private lateinit var repository: NotificationRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val apiClient = pe.gob.fondepes.demo.portal.certificaciones.data.ApiClient(
+            VolleySingleton.getInstance(requireContext())
+        )
+        val securePreferences = SecurePreferences(requireContext())  // Asegúrate de tener implementada esta clase
+        repository = NotificationRepository(apiClient, securePreferences)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentNotificationBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupRecyclerView()
+        fetchNotifications() // Llama a la función de carga de notificaciones
     }
 
-    private fun setupRecyclerView() {
-        val notifications = listOf(
-            Notification(
-                title = "Nueva certificación",
-                body = "Seguridad ante derrames de petróleo",
-                state = NotificationState.WITH_BUTTON
-            ),
-            Notification(
-                title = "Próxima renovación",
-                body = "Certificación Liberación de tortugas",
-                state = NotificationState.WITH_ICON
-            ),
-            Notification(
-                title = "Recordatorio",
-                body = "Certificación de primeros auxilios expira pronto",
-                state = NotificationState.DEFAULT
-            )
+    private fun fetchNotifications() {
+        val userId = "AIzaSyAv1OGGQYlECPRr0AXu2bCPzbCU0nwpwC0"
+
+        repository.fetchNotifications(
+            userId = userId,
+            successCallback = { response ->
+                val notifications = parseNotifications(response)
+                if (notifications.isNotEmpty()) {
+                    setupRecyclerView(notifications) // Actualiza RecyclerView con los datos obtenidos
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "No hay notificaciones disponibles",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            },
+            errorCallback = { error ->
+                Toast.makeText(
+                    requireContext(),
+                    "Error al cargar notificaciones: ${error.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         )
-
-        val recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        recyclerView.adapter = NotificationAdapter(notifications)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment NotificationFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance() =
-            NotificationFragment()
+    private fun parseNotifications(response: JSONObject): List<Notification> {
+        val notifications = mutableListOf<Notification>()
+
+        val keys = response.keys()
+        while (keys.hasNext()) {
+            val key = keys.next()
+            val notificationJson = response.getJSONObject(key)
+
+            val actionJson = notificationJson.optJSONObject("action")
+            val action = if (actionJson != null) {
+                NotificationAction(
+                    label = actionJson.getString("label"),
+                    target = actionJson.getString("target")
+                )
+            } else {
+                null
+            }
+
+            val notification = Notification(
+                notificationId = notificationJson.getString("notificationId"),
+                title = notificationJson.getString("title"),
+                description = notificationJson.getString("description"),
+                type = notificationJson.getString("type"),
+                createdAt = notificationJson.getString("createdAt"),
+                action = action
+            )
+
+            notifications.add(notification)
+        }
+
+        return notifications
+    }
+
+    private fun setupRecyclerView(notifications: List<Notification>) {
+        val adapter = NotificationAdapter(notifications)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onDestroyView() {
