@@ -17,6 +17,7 @@ import pe.gob.fondepes.demo.portal.certificaciones.presentation.adapter.Notifica
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.Notification
 import pe.gob.fondepes.demo.portal.certificaciones.databinding.FragmentNotificationBinding
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.data.NotificationAction
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.di.DependencyProvider
 
 
 /**
@@ -31,11 +32,7 @@ class NotificationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val apiClient = pe.gob.fondepes.demo.portal.certificaciones.data.ApiClient(
-            VolleySingleton.getInstance(requireContext())
-        )
-        val securePreferences = SecurePreferences(requireContext())  // Asegúrate de tener implementada esta clase
-        repository = NotificationRepository(apiClient, securePreferences)
+        repository = DependencyProvider.provideNotificationRepository(requireContext())
     }
 
     override fun onCreateView(
@@ -52,10 +49,7 @@ class NotificationFragment : Fragment() {
     }
 
     private fun fetchNotifications() {
-        val userId = "AIzaSyAv1OGGQYlECPRr0AXu2bCPzbCU0nwpwC0"
-
         repository.fetchNotifications(
-            userId = userId,
             successCallback = { response ->
                 val notifications = parseNotifications(response)
                 if (notifications.isNotEmpty()) {

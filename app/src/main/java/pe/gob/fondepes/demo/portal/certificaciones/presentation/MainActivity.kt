@@ -18,6 +18,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import pe.gob.fondepes.demo.portal.certificaciones.R
 import pe.gob.fondepes.demo.portal.certificaciones.data.LoginRepository
+import pe.gob.fondepes.demo.portal.certificaciones.data.SecurePreferences
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.di.DependencyProvider
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
     private lateinit var loginRepository: LoginRepository
+    private lateinit var securePreferences: SecurePreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +63,14 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
+        securePreferences = DependencyProvider.provideSecurePreferences(this)
         loginRepository = DependencyProvider.provideLoginRepository(this)
+
+        if (securePreferences.getToken().isNullOrBlank().not()
+            && securePreferences.getUserID().isNullOrBlank().not()
+        ) {
+            openHomeActivity()
+        }
 
         etUsername = findViewById(R.id.editTextText3)
         etPassword = findViewById(R.id.editTextTextPassword)
@@ -93,8 +102,7 @@ class MainActivity : AppCompatActivity() {
             password,
             {
                 // Iniciar sesión exitoso, redirige a la siguiente actividad
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
+                openHomeActivity()
             },
             { error ->
                 // Registra el error en detalle
@@ -108,6 +116,11 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
             }
         )
+    }
+
+    private fun openHomeActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 
 }

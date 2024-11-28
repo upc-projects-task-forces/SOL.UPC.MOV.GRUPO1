@@ -9,14 +9,19 @@ class NotificationRepository(
 ) {
 
     fun fetchNotifications(
-        userId: String,
         successCallback: (JSONObject) -> Unit,
         errorCallback: (Throwable) -> Unit
     ) {
         val token = securePreferences.getToken()
+        val userId = securePreferences.getUserID()
 
         if (token.isNullOrEmpty()) {
             errorCallback(Throwable("Token is missing"))
+
+            return
+        }
+        if (userId.isNullOrEmpty()) {
+            errorCallback(Throwable("User id is missing"))
             return
         }
 

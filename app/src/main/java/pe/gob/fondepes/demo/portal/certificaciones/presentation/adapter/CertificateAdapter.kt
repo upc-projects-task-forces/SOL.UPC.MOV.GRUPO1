@@ -16,6 +16,7 @@ class CertificateAdapter(context: Context, private val certificates: ArrayList<C
         view.findViewById<TextView>(R.id.txtTitleCertDetail).text = certificate.title
         view.findViewById<TextView>(R.id.txtDescriptionCertDetail).text = certificate.description
         view.findViewById<TextView>(R.id.txtDateCertDetail).text = certificate.expirationDate
+        view.findViewById<TextView>(R.id.txtCertDetailStatus).text = certificate.status
         return view
     }
 }

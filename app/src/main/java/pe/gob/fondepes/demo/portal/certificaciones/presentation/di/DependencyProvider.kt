@@ -10,6 +10,7 @@ import pe.gob.fondepes.demo.portal.certificaciones.data.volley.VolleySingleton
 
 object DependencyProvider {
     private var volleySingleton: VolleySingleton? = null
+    private var securePreferences: SecurePreferences? = null
 
     private fun provideVolleySingleton(context: Context): VolleySingleton {
         if (volleySingleton == null) {
@@ -24,19 +25,26 @@ object DependencyProvider {
 
     fun provideTaskRepository(context: Context): TaskRepository {
         val apiClient = provideApiClient(context)
-        val securePreferences = SecurePreferences(context)
+        val securePreferences = provideSecurePreferences(context)
         return TaskRepository(apiClient, securePreferences)
     }
 
     fun provideNotificationRepository(context: Context): NotificationRepository {
         val apiClient = provideApiClient(context)
-        val securePreferences = SecurePreferences(context)
+        val securePreferences = provideSecurePreferences(context)
         return NotificationRepository(apiClient, securePreferences)
     }
 
     fun provideLoginRepository(context: Context): LoginRepository {
         val apiClient = provideApiClient(context)
-        val securePreferences = SecurePreferences(context)
+        val securePreferences = provideSecurePreferences(context)
         return LoginRepository(apiClient, securePreferences)
+    }
+
+    fun provideSecurePreferences(context: Context): SecurePreferences {
+        if (securePreferences == null) {
+            securePreferences = SecurePreferences(context)
+        }
+        return securePreferences!!
     }
 }

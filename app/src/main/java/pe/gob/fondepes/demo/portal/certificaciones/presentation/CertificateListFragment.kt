@@ -15,6 +15,7 @@ import pe.gob.fondepes.demo.portal.certificaciones.R
 import pe.gob.fondepes.demo.portal.certificaciones.data.TaskRepository
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.adapter.CertificateAdapter
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.Certificate
+import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.CertificateApiResponse
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.CourseApiResponse
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.Task
 import pe.gob.fondepes.demo.portal.certificaciones.presentation.classes.TaskAPIResponse
@@ -48,9 +49,12 @@ class CertificateListFragment : Fragment() {
                 listView.adapter = adapter
                 listView.setOnItemClickListener { _, _, position, _ ->
                     val selectedCertificate = tasks[position]
-                    val intent = Intent(requireContext(), CertificateDetailActivity::class.java).apply {
-                        putExtra("certificate", selectedCertificate)
-                    }
+                    val intent =
+                        Intent(requireContext(), CertificateDetailActivity::class.java).apply {
+                            putExtra("certificate", selectedCertificate)
+                            Log.e("ALERT123", selectedCertificate.toString())
+                            //putExtra("certificado", selectedCertificate)
+                        }
                     startActivity(intent)
                 }
                 pbCertication.visibility = View.GONE
@@ -62,15 +66,15 @@ class CertificateListFragment : Fragment() {
         }
     }
 
-    private suspend fun getTasks(): ArrayList<Certificate>{
+    private suspend fun getTasks(): ArrayList<Certificate> {
         val tasksResponseJson = taskRepository.fetchTasks()
         val tasksResponse = TaskAPIResponse.fromJson(tasksResponseJson.toString())
         return mappingTaskResponse(tasksResponse)
     }
 
-    private fun mappingTaskResponse(tasksResponse: TaskAPIResponse): ArrayList<Certificate>{
+    private fun mappingTaskResponse(tasksResponse: TaskAPIResponse): ArrayList<Certificate> {
         val certificates: ArrayList<Certificate> = arrayListOf()
-        tasksResponse.forEach{(id, task) ->
+        tasksResponse.forEach { (id, task) ->
             certificates.add(addCertificate(id, task))
         }
         return certificates
@@ -78,18 +82,29 @@ class CertificateListFragment : Fragment() {
 
     private fun addCertificate(id: String, task: Task): Certificate {
         val course: CourseApiResponse? = task.course
+        val cer: CertificateApiResponse? = task.certificate
         return Certificate(
             id = id,
             title = course?.name ?: "",
             description = course?.description ?: "",
-            status = course?.status ?: "",
+            status = resolveStatus(task),
             expirationDate = formatDate(task.updatedAt),
             instructor = course?.instructor?.name ?: "",
             timeLimit = formatDate(task.updatedAt),
+            url = cer?.url ?: ""
         )
     }
 
-    fun formatDate(dateString: String?): String {
+    private fun resolveStatus(task: Task): String {
+        return when (task.status) {
+            "COMPLETED_AWAITING_CERTIFICATE" -> "CERTIFICADO EN PROCESO"
+            "COMPLETED" -> "COMPLETADO"
+            "FINISHED" -> "FINALIZADO"
+            else -> "PENDIENTE"
+        }
+    }
+
+    private fun formatDate(dateString: String?): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
         val outputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         inputFormat.timeZone = TimeZone.getTimeZone("UTC")
