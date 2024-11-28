@@ -9,13 +9,28 @@ class NotificationRepository(
 ) {
 
     fun fetchNotifications(
-        userId: String,
         successCallback: (JSONObject) -> Unit,
         errorCallback: (Throwable) -> Unit
     ) {
         val token = securePreferences.getToken()
+        val userId = securePreferences.getUserID()
+
+        if (token.isNullOrEmpty()) {
+            errorCallback(Throwable("Token is missing"))
+
+            return
+        }
+        if (userId.isNullOrEmpty()) {
+            errorCallback(Throwable("User id is missing"))
+            return
+        }
+
         val url = FirebaseApi.NOTIFICATIONS_ENDPOINT.replace("{userId}", userId) + "?auth=$token"
 
-        apiClient.get(url, successCallback, errorCallback)
+        apiClient.get(
+            url = url,
+            successCallback = successCallback,
+            errorCallback = errorCallback
+        )
     }
 }

@@ -10,9 +10,11 @@ data class Certificate(
     val status: String,
     val expirationDate: String,
     val instructor: String,
-    val timeLimit: String
+    val timeLimit: String,
+    val url: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
@@ -31,6 +33,7 @@ data class Certificate(
         parcel.writeString(expirationDate)
         parcel.writeString(instructor)
         parcel.writeString(timeLimit)
+        parcel.writeString(url)
     }
 
     override fun describeContents(): Int {
